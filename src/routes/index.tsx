@@ -1,24 +1,32 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ClinicSite } from "@/components/ClinicSite";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Dr. Iyad Eye Clinic — Specialized Ophthalmology Care" },
+      {
+        name: "description",
+        content:
+          "Dr. Iyad Ali Habil — ophthalmology clinic offering cornea, cataract, and laser vision correction consultations. Contact via Instagram.",
+      },
+      {
+        property: "og:title",
+        content: "Dr. Iyad Eye Clinic — Specialized Ophthalmology Care",
+      },
+      {
+        property: "og:description",
+        content:
+          "Bilingual (EN/AR) ophthalmology clinic of Dr. Iyad Ali Habil. Cornea, cataract, and laser vision correction consultations.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+  return <ClinicSite />;
 }
