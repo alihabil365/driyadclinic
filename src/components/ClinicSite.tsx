@@ -456,3 +456,52 @@ function InfoRow({
     </div>
   );
 }
+
+function ContactCard({
+  icon,
+  label,
+  value,
+  href,
+  hint,
+  dir,
+  className = "",
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  href?: string;
+  hint?: string;
+  dir?: "ltr" | "rtl";
+  className?: string;
+}) {
+  const inner = (
+    <>
+      <div className="w-12 h-12 rounded-xl grid place-items-center bg-gradient-to-br from-clinic-teal/15 to-clinic-navy/10 text-clinic-teal shrink-0">
+        {icon}
+      </div>
+      <div className="min-w-0">
+        <div className="text-xs font-semibold uppercase tracking-wider text-clinic-navy/50">
+          {label}
+        </div>
+        <div
+          className="mt-1 text-base font-medium text-clinic-navy break-words"
+          dir={dir}
+        >
+          {value}
+        </div>
+        {hint && <div className="mt-1 text-xs text-clinic-navy/50">{hint}</div>}
+      </div>
+    </>
+  );
+  const base = `flex items-start gap-4 rounded-2xl bg-white border border-clinic-navy/5 p-6 shadow-sm ${className}`;
+  return href ? (
+    <a
+      href={href}
+      className={`${base} hover:shadow-md hover:border-clinic-teal/30 transition-all`}
+    >
+      {inner}
+    </a>
+  ) : (
+    <div className={base}>{inner}</div>
+  );
+}
