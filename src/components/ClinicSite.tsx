@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   Eye,
   Instagram,
+  Facebook,
   Clock,
   Menu,
   X,
@@ -11,10 +12,21 @@ import {
   HeartPulse,
   Sun,
   Languages,
+  Phone,
+  Mail,
+  MapPin,
 } from "lucide-react";
 import heroImg from "@/assets/hero-eye-clinic.jpg";
 import doctorImg from "@/assets/doctor-portrait.jpg";
-import { translations, INSTAGRAM_URL, type Lang } from "@/lib/i18n";
+import {
+  translations,
+  INSTAGRAM_URL,
+  FACEBOOK_URL,
+  PHONE_NUMBER,
+  PHONE_INTL,
+  EMAIL,
+  type Lang,
+} from "@/lib/i18n";
 
 const serviceIcons = [ScanEye, Eye, Sparkles, Sun, HeartPulse];
 
@@ -330,44 +342,64 @@ export function ClinicSite() {
 
       {/* Contact */}
       <section id="contact" className="py-20 lg:py-28 bg-clinic-mist/60">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8">
-          <div className="rounded-3xl bg-white border border-clinic-navy/5 p-8 lg:p-10 shadow-sm">
-            <div className="w-12 h-12 rounded-xl grid place-items-center bg-gradient-to-br from-clinic-navy to-clinic-teal text-white">
-              <Instagram size={22} />
-            </div>
-            <h2 className="mt-5 text-2xl sm:text-3xl font-bold text-clinic-navy">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto">
+            <span className="text-clinic-teal text-sm font-semibold uppercase tracking-wider">
+              {isRtl ? "تواصل معنا" : "Get in touch"}
+            </span>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-clinic-navy">
               {t.contact.title}
             </h2>
-            <p className="mt-4 text-clinic-navy/70 leading-relaxed">
-              {t.contact.text}
-            </p>
+            <p className="mt-4 text-clinic-navy/70">{t.contact.text}</p>
+          </div>
+
+          <div className="mt-12 grid md:grid-cols-2 gap-6">
+            <ContactCard
+              icon={<Phone size={22} />}
+              label={t.contact.phoneLabel}
+              value={PHONE_NUMBER}
+              href={`tel:${PHONE_INTL}`}
+              dir="ltr"
+            />
+            <ContactCard
+              icon={<Mail size={22} />}
+              label={t.contact.emailLabel}
+              value={EMAIL}
+              href={`mailto:${EMAIL}`}
+              dir="ltr"
+            />
+            <ContactCard
+              icon={<MapPin size={22} />}
+              label={t.contact.addressLabel}
+              value={t.contact.address}
+              hint={t.contact.mapsSoon}
+              className="md:col-span-2"
+            />
+          </div>
+
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
             <a
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-clinic-navy to-clinic-teal text-white font-medium shadow-lg shadow-clinic-teal/20 hover:shadow-xl transition-shadow"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-clinic-navy to-clinic-teal text-white font-medium shadow-lg shadow-clinic-teal/20 hover:shadow-xl transition-shadow"
             >
               <Instagram size={18} />
               {t.contact.button}
             </a>
-            <p className="mt-4 text-sm text-clinic-navy/60">
-              {t.about.instagram}
-            </p>
-          </div>
-          <div className="rounded-3xl border-2 border-dashed border-clinic-navy/15 p-8 lg:p-10 bg-white/40">
-            <span className="inline-block px-3 py-1 rounded-full bg-clinic-gold/15 text-clinic-gold-dark text-xs font-semibold uppercase tracking-wider">
-              {t.contact.soonTitle}
-            </span>
-            <h3 className="mt-4 text-xl font-semibold text-clinic-navy">
-              {t.contact.soonText}
-            </h3>
-            {/* Hidden placeholders reserved for future data */}
-            <div className="hidden" aria-hidden data-placeholder="phone" />
-            <div className="hidden" aria-hidden data-placeholder="address" />
-            <div className="hidden" aria-hidden data-placeholder="google-maps" />
+            <a
+              href={FACEBOOK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-clinic-navy/15 text-clinic-navy font-medium hover:border-clinic-teal hover:text-clinic-teal transition-colors"
+            >
+              <Facebook size={18} />
+              {t.contact.facebookButton}
+            </a>
           </div>
         </div>
       </section>
+
 
       {/* Footer */}
       <footer className="border-t border-clinic-navy/10 bg-white">
@@ -383,15 +415,38 @@ export function ClinicSite() {
               {t.footer.disclaimer}
             </p>
           </div>
-          <div className="md:text-center">
+          <div className="md:text-center flex md:justify-center gap-4">
             <a
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Instagram"
               className="inline-flex items-center gap-2 text-clinic-navy hover:text-clinic-teal transition-colors"
             >
-              <Instagram size={18} />
-              {t.about.instagram}
+              <Instagram size={20} />
+            </a>
+            <a
+              href={FACEBOOK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="inline-flex items-center gap-2 text-clinic-navy hover:text-clinic-teal transition-colors"
+            >
+              <Facebook size={20} />
+            </a>
+            <a
+              href={`tel:${PHONE_INTL}`}
+              aria-label="Phone"
+              className="inline-flex items-center gap-2 text-clinic-navy hover:text-clinic-teal transition-colors"
+            >
+              <Phone size={20} />
+            </a>
+            <a
+              href={`mailto:${EMAIL}`}
+              aria-label="Email"
+              className="inline-flex items-center gap-2 text-clinic-navy hover:text-clinic-teal transition-colors"
+            >
+              <Mail size={20} />
             </a>
           </div>
           <div className="md:text-end text-sm text-clinic-navy/60">
@@ -422,5 +477,54 @@ function InfoRow({
         <div className="mt-1 text-sm text-clinic-navy">{value}</div>
       </div>
     </div>
+  );
+}
+
+function ContactCard({
+  icon,
+  label,
+  value,
+  href,
+  hint,
+  dir,
+  className = "",
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  href?: string;
+  hint?: string;
+  dir?: "ltr" | "rtl";
+  className?: string;
+}) {
+  const inner = (
+    <>
+      <div className="w-12 h-12 rounded-xl grid place-items-center bg-gradient-to-br from-clinic-teal/15 to-clinic-navy/10 text-clinic-teal shrink-0">
+        {icon}
+      </div>
+      <div className="min-w-0">
+        <div className="text-xs font-semibold uppercase tracking-wider text-clinic-navy/50">
+          {label}
+        </div>
+        <div
+          className="mt-1 text-base font-medium text-clinic-navy break-words"
+          dir={dir}
+        >
+          {value}
+        </div>
+        {hint && <div className="mt-1 text-xs text-clinic-navy/50">{hint}</div>}
+      </div>
+    </>
+  );
+  const base = `flex items-start gap-4 rounded-2xl bg-white border border-clinic-navy/5 p-6 shadow-sm ${className}`;
+  return href ? (
+    <a
+      href={href}
+      className={`${base} hover:shadow-md hover:border-clinic-teal/30 transition-all`}
+    >
+      {inner}
+    </a>
+  ) : (
+    <div className={base}>{inner}</div>
   );
 }

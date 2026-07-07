@@ -48,10 +48,15 @@ export const translations = {
     },
     contact: {
       title: "Contact the Clinic",
-      text: "Appointments and inquiries are currently handled through Instagram.",
+      text: "Reach us on Instagram, Facebook, by phone, or email. Walk-ins welcome during working hours.",
       button: "Open Instagram",
-      soonTitle: "Coming soon",
-      soonText: "Phone number, address, and map location will be added later.",
+      facebookButton: "Open Facebook",
+      phoneLabel: "Phone",
+      emailLabel: "Email",
+      addressLabel: "Address",
+      address:
+        "Sham Commercial Center, 4th Floor, Kulieh Al Ahlieh St, Ramallah",
+      mapsSoon: "Map location will be added soon.",
     },
     footer: {
       disclaimer:
@@ -105,10 +110,14 @@ export const translations = {
     },
     contact: {
       title: "تواصل مع العيادة",
-      text: "يتم استقبال الاستفسارات والمواعيد حالياً عبر إنستغرام.",
+      text: "يمكنكم التواصل معنا عبر إنستغرام أو فيسبوك أو الهاتف أو البريد الإلكتروني. نرحّب بكم خلال أوقات الدوام.",
       button: "فتح إنستغرام",
-      soonTitle: "قريباً",
-      soonText: "سيتم إضافة رقم الهاتف والعنوان وموقع الخريطة لاحقاً.",
+      facebookButton: "فتح فيسبوك",
+      phoneLabel: "الهاتف",
+      emailLabel: "البريد الإلكتروني",
+      addressLabel: "العنوان",
+      address: "شارع الكلية الأهلية، مركز شام التجاري، الطابق الرابع، رام الله",
+      mapsSoon: "سيتم إضافة موقع الخريطة قريباً.",
     },
     footer: {
       disclaimer:
@@ -119,3 +128,9 @@ export const translations = {
 };
 
 export const INSTAGRAM_URL = "https://www.instagram.com/dr.iyad_eyeclinic/";
+export const FACEBOOK_URL =
+  "https://www.facebook.com/p/DrIyad-Eye-Clinic-61583418184276/";
+export const PHONE_NUMBER = "0594599928";
+export const PHONE_INTL = "+970594599928";
+export const EMAIL = "habiliyad@gmail.com";
+
