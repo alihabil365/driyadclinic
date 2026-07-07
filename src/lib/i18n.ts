@@ -48,10 +48,15 @@ export const translations = {
     },
     contact: {
       title: "Contact the Clinic",
-      text: "Appointments and inquiries are currently handled through Instagram.",
+      text: "Reach us on Instagram, Facebook, by phone, or email. Walk-ins welcome during working hours.",
       button: "Open Instagram",
-      soonTitle: "Coming soon",
-      soonText: "Phone number, address, and map location will be added later.",
+      facebookButton: "Open Facebook",
+      phoneLabel: "Phone",
+      emailLabel: "Email",
+      addressLabel: "Address",
+      address:
+        "Sham Commercial Center, 4th Floor, Kulieh Al Ahlieh St, Ramallah",
+      mapsSoon: "Map location will be added soon.",
     },
     footer: {
       disclaimer:
