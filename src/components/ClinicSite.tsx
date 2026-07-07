@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   Eye,
   Instagram,
+  Facebook,
   Clock,
   Menu,
   X,
@@ -11,10 +12,21 @@ import {
   HeartPulse,
   Sun,
   Languages,
+  Phone,
+  Mail,
+  MapPin,
 } from "lucide-react";
 import heroImg from "@/assets/hero-eye-clinic.jpg";
 import doctorImg from "@/assets/doctor-portrait.jpg";
-import { translations, INSTAGRAM_URL, type Lang } from "@/lib/i18n";
+import {
+  translations,
+  INSTAGRAM_URL,
+  FACEBOOK_URL,
+  PHONE_NUMBER,
+  PHONE_INTL,
+  EMAIL,
+  type Lang,
+} from "@/lib/i18n";
 
 const serviceIcons = [ScanEye, Eye, Sparkles, Sun, HeartPulse];
 
