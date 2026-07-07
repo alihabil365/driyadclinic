@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Bilingual (EN/AR) ophthalmology clinic of Dr. Iyad Ali Habil. Cornea, cataract, and laser vision correction consultations.",
+          "Dr. Iyad Ali Habil — ophthalmology clinic offering cornea, cataract, and laser vision correction consultations. Contact via Instagram.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },

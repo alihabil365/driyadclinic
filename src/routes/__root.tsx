@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Dr. Iyad Eye Clinic — Specialized Ophthalmology Care" },
+      { name: "description", content: "Dr. Iyad Ali Habil — ophthalmology clinic offering cornea, cataract, and laser vision correction consultations. Contact via Instagram." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Dr. Iyad Eye Clinic — Specialized Ophthalmology Care" },
+      { property: "og:description", content: "Dr. Iyad Ali Habil — ophthalmology clinic offering cornea, cataract, and laser vision correction consultations. Contact via Instagram." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Dr. Iyad Eye Clinic — Specialized Ophthalmology Care" },
+      { name: "twitter:description", content: "Dr. Iyad Ali Habil — ophthalmology clinic offering cornea, cataract, and laser vision correction consultations. Contact via Instagram." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2a9b82cd-9691-45ae-aff4-ab9468c9c1ea/id-preview-aa3665e9--d4ec84dc-48c7-4db2-8b76-9e2475901bad.lovable.app-1783462349718.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2a9b82cd-9691-45ae-aff4-ab9468c9c1ea/id-preview-aa3665e9--d4ec84dc-48c7-4db2-8b76-9e2475901bad.lovable.app-1783462349718.png" },
     ],
     links: [
       {
