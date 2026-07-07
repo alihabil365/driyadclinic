@@ -128,3 +128,9 @@ export const translations = {
 };
 
 export const INSTAGRAM_URL = "https://www.instagram.com/dr.iyad_eyeclinic/";
+export const FACEBOOK_URL =
+  "https://www.facebook.com/p/DrIyad-Eye-Clinic-61583418184276/";
+export const PHONE_NUMBER = "0594599928";
+export const PHONE_INTL = "+970594599928";
+export const EMAIL = "habiliyad@gmail.com";
+
