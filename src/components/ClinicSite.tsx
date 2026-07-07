@@ -330,44 +330,64 @@ export function ClinicSite() {
 
       {/* Contact */}
       <section id="contact" className="py-20 lg:py-28 bg-clinic-mist/60">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8">
-          <div className="rounded-3xl bg-white border border-clinic-navy/5 p-8 lg:p-10 shadow-sm">
-            <div className="w-12 h-12 rounded-xl grid place-items-center bg-gradient-to-br from-clinic-navy to-clinic-teal text-white">
-              <Instagram size={22} />
-            </div>
-            <h2 className="mt-5 text-2xl sm:text-3xl font-bold text-clinic-navy">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto">
+            <span className="text-clinic-teal text-sm font-semibold uppercase tracking-wider">
+              {isRtl ? "تواصل معنا" : "Get in touch"}
+            </span>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-clinic-navy">
               {t.contact.title}
             </h2>
-            <p className="mt-4 text-clinic-navy/70 leading-relaxed">
-              {t.contact.text}
-            </p>
+            <p className="mt-4 text-clinic-navy/70">{t.contact.text}</p>
+          </div>
+
+          <div className="mt-12 grid md:grid-cols-2 gap-6">
+            <ContactCard
+              icon={<Phone size={22} />}
+              label={t.contact.phoneLabel}
+              value={PHONE_NUMBER}
+              href={`tel:${PHONE_INTL}`}
+              dir="ltr"
+            />
+            <ContactCard
+              icon={<Mail size={22} />}
+              label={t.contact.emailLabel}
+              value={EMAIL}
+              href={`mailto:${EMAIL}`}
+              dir="ltr"
+            />
+            <ContactCard
+              icon={<MapPin size={22} />}
+              label={t.contact.addressLabel}
+              value={t.contact.address}
+              hint={t.contact.mapsSoon}
+              className="md:col-span-2"
+            />
+          </div>
+
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
             <a
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-clinic-navy to-clinic-teal text-white font-medium shadow-lg shadow-clinic-teal/20 hover:shadow-xl transition-shadow"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-clinic-navy to-clinic-teal text-white font-medium shadow-lg shadow-clinic-teal/20 hover:shadow-xl transition-shadow"
             >
               <Instagram size={18} />
               {t.contact.button}
             </a>
-            <p className="mt-4 text-sm text-clinic-navy/60">
-              {t.about.instagram}
-            </p>
-          </div>
-          <div className="rounded-3xl border-2 border-dashed border-clinic-navy/15 p-8 lg:p-10 bg-white/40">
-            <span className="inline-block px-3 py-1 rounded-full bg-clinic-gold/15 text-clinic-gold-dark text-xs font-semibold uppercase tracking-wider">
-              {t.contact.soonTitle}
-            </span>
-            <h3 className="mt-4 text-xl font-semibold text-clinic-navy">
-              {t.contact.soonText}
-            </h3>
-            {/* Hidden placeholders reserved for future data */}
-            <div className="hidden" aria-hidden data-placeholder="phone" />
-            <div className="hidden" aria-hidden data-placeholder="address" />
-            <div className="hidden" aria-hidden data-placeholder="google-maps" />
+            <a
+              href={FACEBOOK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-clinic-navy/15 text-clinic-navy font-medium hover:border-clinic-teal hover:text-clinic-teal transition-colors"
+            >
+              <Facebook size={18} />
+              {t.contact.facebookButton}
+            </a>
           </div>
         </div>
       </section>
+
 
       {/* Footer */}
       <footer className="border-t border-clinic-navy/10 bg-white">
