@@ -415,15 +415,38 @@ export function ClinicSite() {
               {t.footer.disclaimer}
             </p>
           </div>
-          <div className="md:text-center">
+          <div className="md:text-center flex md:justify-center gap-4">
             <a
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Instagram"
               className="inline-flex items-center gap-2 text-clinic-navy hover:text-clinic-teal transition-colors"
             >
-              <Instagram size={18} />
-              {t.about.instagram}
+              <Instagram size={20} />
+            </a>
+            <a
+              href={FACEBOOK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="inline-flex items-center gap-2 text-clinic-navy hover:text-clinic-teal transition-colors"
+            >
+              <Facebook size={20} />
+            </a>
+            <a
+              href={`tel:${PHONE_INTL}`}
+              aria-label="Phone"
+              className="inline-flex items-center gap-2 text-clinic-navy hover:text-clinic-teal transition-colors"
+            >
+              <Phone size={20} />
+            </a>
+            <a
+              href={`mailto:${EMAIL}`}
+              aria-label="Email"
+              className="inline-flex items-center gap-2 text-clinic-navy hover:text-clinic-teal transition-colors"
+            >
+              <Mail size={20} />
             </a>
           </div>
           <div className="md:text-end text-sm text-clinic-navy/60">
