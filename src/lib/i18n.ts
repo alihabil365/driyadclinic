@@ -12,14 +12,15 @@ export const translations = {
       contact: "Contact",
     },
     langToggle: "العربية",
-    ctaInstagram: "Contact on Instagram",
+    ctaBook: "Book Appointment",
+    ctaCall: "Call the Clinic",
     hero: {
       eyebrow: "Ophthalmology Clinic",
       title: "Specialized Eye Care with Dr. Iyad Ali Habil",
       subtitle:
         "Ophthalmologist and consultant in cornea diseases, cataract, and laser vision correction.",
-      cta1: "Contact on Instagram",
-      cta2: "View Working Hours",
+      cta1: "Book Appointment",
+      cta2: "Call the Clinic",
     },
     about: {
       title: "About Dr. Iyad",
@@ -44,12 +45,13 @@ export const translations = {
     hours: {
       title: "Working Hours",
       text: "Saturday and Sunday: 9:00 AM – 2:00 PM",
-      note: "Please contact us via Instagram to schedule your visit.",
+      note: "Book your appointment online or call us during working hours.",
     },
     contact: {
       title: "Contact the Clinic",
-      text: "Reach us on Instagram, Facebook, by phone, or email. Walk-ins welcome during working hours.",
-      button: "Open Instagram",
+      text: "Call us during working hours, or reach us on Instagram, Facebook, or email.",
+      button: "Call the Clinic",
+      instagramButton: "Open Instagram",
       facebookButton: "Open Facebook",
       phoneLabel: "Phone",
       emailLabel: "Email",
@@ -57,6 +59,14 @@ export const translations = {
       address:
         "Sham Commercial Center, 4th Floor, Kulieh Al Ahlieh St, Ramallah",
       mapsSoon: "Map location will be added soon.",
+    },
+    booking: {
+      title: "Book Your Appointment",
+      subtitle:
+        "Choose a date and time that works for you. You'll receive an email confirmation instantly.",
+      setupNote:
+        "Booking calendar is being set up. Please call us or contact via Instagram for now.",
+      close: "Close",
     },
     footer: {
       disclaimer:
@@ -75,14 +85,15 @@ export const translations = {
       contact: "التواصل",
     },
     langToggle: "English",
-    ctaInstagram: "تواصل عبر إنستغرام",
+    ctaBook: "احجز موعداً",
+    ctaCall: "اتصل بالعيادة",
     hero: {
       eyebrow: "عيادة طب وجراحة العيون",
       title: "رعاية متخصصة للعيون مع د. إياد هابيل",
       subtitle:
         "اختصاصي طب وجراحة العيون، واستشاري أمراض القرنية والساد وتصحيح البصر بالليزر.",
-      cta1: "تواصل عبر إنستغرام",
-      cta2: "عرض أوقات الدوام",
+      cta1: "احجز موعداً",
+      cta2: "اتصل بالعيادة",
     },
     about: {
       title: "عن د. إياد",
@@ -106,18 +117,27 @@ export const translations = {
     hours: {
       title: "أوقات الدوام",
       text: "السبت والأحد: 9:00 ص – 2:00 م",
-      note: "يرجى التواصل معنا عبر إنستغرام لتحديد موعد الزيارة.",
+      note: "احجز موعدك عبر الإنترنت أو اتصل بنا خلال أوقات الدوام.",
     },
     contact: {
       title: "تواصل مع العيادة",
-      text: "يمكنكم التواصل معنا عبر إنستغرام أو فيسبوك أو الهاتف أو البريد الإلكتروني. نرحّب بكم خلال أوقات الدوام.",
-      button: "فتح إنستغرام",
+      text: "اتصل بنا خلال أوقات الدوام، أو تواصل معنا عبر إنستغرام أو فيسبوك أو البريد الإلكتروني.",
+      button: "اتصل بالعيادة",
+      instagramButton: "فتح إنستغرام",
       facebookButton: "فتح فيسبوك",
       phoneLabel: "الهاتف",
       emailLabel: "البريد الإلكتروني",
       addressLabel: "العنوان",
       address: "شارع الكلية الأهلية، مركز شام التجاري، الطابق الرابع، رام الله",
       mapsSoon: "سيتم إضافة موقع الخريطة قريباً.",
+    },
+    booking: {
+      title: "احجز موعدك",
+      subtitle:
+        "اختر التاريخ والوقت المناسب لك. ستصلك رسالة تأكيد عبر البريد الإلكتروني فوراً.",
+      setupNote:
+        "تقويم الحجز قيد الإعداد. الرجاء الاتصال بنا أو التواصل عبر إنستغرام حالياً.",
+      close: "إغلاق",
     },
     footer: {
       disclaimer:
@@ -134,3 +154,20 @@ export const PHONE_NUMBER = "0594599928";
 export const PHONE_INTL = "+970594599928";
 export const EMAIL = "habiliyad@gmail.com";
 
+// ============================================================================
+// BOOKING CALENDAR (Cal.com)
+// ============================================================================
+// To activate the booking calendar:
+//   1. Sign up for a FREE account at https://cal.com (takes 2 minutes)
+//   2. Create an event type called "consultation" (or any name)
+//      - Set duration (e.g. 30 min)
+//      - Set your available hours (Sat & Sun 9:00 AM – 2:00 PM)
+//      - Add custom questions: Name*, Phone*, Reason (dropdown)*, Other details
+//   3. Replace the values below with your Cal.com username and event slug
+//   4. Cal.com will send email confirmations automatically to both you and the
+//      client, and you can view/edit all bookings in your Cal.com dashboard
+//      (your "admin page" — free, no setup).
+// ============================================================================
+export const CAL_USERNAME = "dr-iyad-eye-clinic"; // <-- replace with your cal.com username
+export const CAL_EVENT_SLUG = "consultation"; // <-- replace with your event type slug
+export const CAL_LINK = `${CAL_USERNAME}/${CAL_EVENT_SLUG}`;
