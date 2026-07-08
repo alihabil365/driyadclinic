@@ -317,7 +317,30 @@ export function ClinicSite() {
       </section>
 
       {/* Hours */}
+      {/* Gallery */}
+      <section className="py-20 lg:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto">
+            <span className="text-clinic-teal text-sm font-semibold uppercase tracking-wider">
+              {isRtl ? "داخل العيادة" : "Inside the clinic"}
+            </span>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-clinic-navy">
+              {isRtl ? "بيئة حديثة وتقنيات متقدمة" : "A modern space, advanced technology"}
+            </h2>
+          </div>
+          <div className="mt-12 grid sm:grid-cols-2 gap-6">
+            <div className="rounded-3xl overflow-hidden shadow-xl shadow-clinic-navy/10 aspect-[4/3]">
+              <img src={clinicAsset.url} alt={isRtl ? "غرفة الفحص" : "Examination room"} loading="lazy" className="w-full h-full object-cover" />
+            </div>
+            <div className="rounded-3xl overflow-hidden shadow-xl shadow-clinic-navy/10 aspect-[4/3]">
+              <img src={scannerAsset.url} alt={isRtl ? "جهاز تصوير القرنية" : "Corneal topography scanner"} loading="lazy" className="w-full h-full object-cover" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="hours" className="py-20 lg:py-28">
+
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-clinic-navy to-clinic-teal p-10 lg:p-14 text-white shadow-2xl shadow-clinic-navy/20">
             <div className="absolute -top-16 -end-16 w-56 h-56 rounded-full bg-clinic-gold/20 blur-3xl" />
