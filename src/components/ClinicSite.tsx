@@ -16,8 +16,12 @@ import {
   Mail,
   MapPin,
 } from "lucide-react";
-import heroImg from "@/assets/hero-eye-clinic.jpg";
-import doctorImg from "@/assets/doctor-portrait.jpg";
+import heroAsset from "@/assets/lobby.jpg.asset.json";
+import doctorAsset from "@/assets/doctor.jpg.asset.json";
+import clinicAsset from "@/assets/clinic.jpg.asset.json";
+import scannerAsset from "@/assets/scanner.jpg.asset.json";
+const heroImg = heroAsset.url;
+const doctorImg = doctorAsset.url;
 import {
   translations,
   INSTAGRAM_URL,
