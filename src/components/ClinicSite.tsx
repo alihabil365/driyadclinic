@@ -15,13 +15,14 @@ import {
   Phone,
   Mail,
   MapPin,
+  Calendar as CalendarIcon,
 } from "lucide-react";
-import heroAsset from "@/assets/lobby.jpg.asset.json";
+import heroVideoAsset from "@/assets/hero-video.mp4.asset.json";
+import clinicVideoAsset from "@/assets/clinic-video.mp4.asset.json";
 import doctorAsset from "@/assets/doctor.jpg.asset.json";
 import clinicAsset from "@/assets/clinic.jpg.asset.json";
-import scannerAsset from "@/assets/scanner.jpg.asset.json";
-const heroImg = heroAsset.url;
-const doctorImg = doctorAsset.url;
+import lobbyAsset from "@/assets/lobby.jpg.asset.json";
+import { BookingDialog } from "@/components/BookingDialog";
 import {
   translations,
   INSTAGRAM_URL,
@@ -37,6 +38,7 @@ const serviceIcons = [ScanEye, Eye, Sparkles, Sun, HeartPulse];
 export function ClinicSite() {
   const [lang, setLang] = useState<Lang>("en");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
   const t = translations[lang];
   const isRtl = lang === "ar";
 
@@ -67,6 +69,7 @@ export function ClinicSite() {
   }, [lang, t.dir, isRtl]);
 
   const toggleLang = () => setLang((l) => (l === "en" ? "ar" : "en"));
+  const openBooking = () => setBookingOpen(true);
 
   const navItems: { key: keyof typeof t.nav; href: string }[] = [
     { key: "home", href: "#home" },
@@ -116,15 +119,13 @@ export function ClinicSite() {
               <Languages size={16} />
               {t.langToggle}
             </button>
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={openBooking}
               className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-clinic-navy to-clinic-teal text-white text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
             >
-              <Instagram size={16} />
-              {t.ctaInstagram}
-            </a>
+              <CalendarIcon size={16} />
+              {t.ctaBook}
+            </button>
             <button
               className="lg:hidden p-2 rounded-lg border border-clinic-navy/15"
               onClick={() => setMenuOpen((v) => !v)}
@@ -154,67 +155,65 @@ export function ClinicSite() {
                 <Languages size={16} className="inline me-2" />
                 {t.langToggle}
               </button>
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => {
+                  setMenuOpen(false);
+                  openBooking();
+                }}
                 className="mt-2 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-clinic-navy to-clinic-teal text-white text-sm font-medium"
               >
-                <Instagram size={16} />
-                {t.ctaInstagram}
-              </a>
+                <CalendarIcon size={16} />
+                {t.ctaBook}
+              </button>
             </div>
           </div>
         )}
       </header>
 
-      {/* Hero */}
+      {/* Hero with background video */}
       <section
         id="home"
-        className="relative overflow-hidden bg-gradient-to-b from-clinic-mist via-white to-white"
+        className="relative overflow-hidden bg-clinic-navy"
       >
-        <div className="absolute inset-0 pointer-events-none opacity-60 [background:radial-gradient(60%_50%_at_80%_0%,rgba(20,138,148,0.15),transparent),radial-gradient(50%_40%_at_0%_100%,rgba(196,164,90,0.12),transparent)]" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-clinic-teal/10 text-clinic-teal text-xs font-medium">
+        <video
+          src={heroVideoAsset.url}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={lobbyAsset.url}
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-clinic-navy/70 via-clinic-navy/60 to-clinic-navy/85" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 lg:py-36 text-white">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur text-white text-xs font-medium">
               <Stethoscope size={14} />
               {t.hero.eyebrow}
             </span>
-            <h1 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-clinic-navy">
+            <h1 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
               {t.hero.title}
             </h1>
-            <p className="mt-5 text-lg text-clinic-navy/70 leading-relaxed max-w-xl">
+            <p className="mt-5 text-lg text-white/85 leading-relaxed max-w-xl">
               {t.hero.subtitle}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-clinic-navy to-clinic-teal text-white font-medium shadow-lg shadow-clinic-teal/20 hover:shadow-xl transition-shadow"
+              <button
+                onClick={openBooking}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-clinic-navy font-medium shadow-lg hover:bg-clinic-gold hover:text-white transition-colors"
               >
-                <Instagram size={18} />
+                <CalendarIcon size={18} />
                 {t.hero.cta1}
-              </a>
+              </button>
               <a
-                href="#hours"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-clinic-navy/15 text-clinic-navy font-medium hover:border-clinic-teal hover:text-clinic-teal transition-colors"
+                href={`tel:${PHONE_INTL}`}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/40 text-white font-medium hover:bg-white/10 transition-colors"
               >
-                <Clock size={18} />
+                <Phone size={18} />
                 {t.hero.cta2}
               </a>
-            </div>
-          </div>
-          <div className="relative">
-            <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-clinic-teal/20 to-clinic-gold/20 blur-2xl" />
-            <div className="relative rounded-3xl overflow-hidden border border-white shadow-2xl shadow-clinic-navy/10">
-              <img
-                src={heroImg}
-                alt=""
-                width={1600}
-                height={1200}
-                className="w-full h-[420px] lg:h-[500px] object-cover"
-              />
             </div>
           </div>
         </div>
@@ -251,7 +250,7 @@ export function ClinicSite() {
               <div className="rounded-[calc(1.5rem-4px)] bg-white p-6">
                 <div className="rounded-2xl overflow-hidden bg-clinic-mist aspect-[4/5]">
                   <img
-                    src={doctorImg}
+                    src={doctorAsset.url}
                     alt={t.about.name}
                     width={1000}
                     height={1200}
@@ -316,7 +315,6 @@ export function ClinicSite() {
         </div>
       </section>
 
-      {/* Hours */}
       {/* Gallery */}
       <section className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -332,15 +330,22 @@ export function ClinicSite() {
             <div className="rounded-3xl overflow-hidden shadow-xl shadow-clinic-navy/10 aspect-[4/3]">
               <img src={clinicAsset.url} alt={isRtl ? "غرفة الفحص" : "Examination room"} loading="lazy" className="w-full h-full object-cover" />
             </div>
-            <div className="rounded-3xl overflow-hidden shadow-xl shadow-clinic-navy/10 aspect-[4/3]">
-              <img src={scannerAsset.url} alt={isRtl ? "جهاز تصوير القرنية" : "Corneal topography scanner"} loading="lazy" className="w-full h-full object-cover" />
+            <div className="rounded-3xl overflow-hidden shadow-xl shadow-clinic-navy/10 aspect-[4/3] bg-clinic-navy">
+              <video
+                src={clinicVideoAsset.url}
+                controls
+                muted
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
       </section>
 
+      {/* Hours / Booking CTA */}
       <section id="hours" className="py-20 lg:py-28">
-
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-clinic-navy to-clinic-teal p-10 lg:p-14 text-white shadow-2xl shadow-clinic-navy/20">
             <div className="absolute -top-16 -end-16 w-56 h-56 rounded-full bg-clinic-gold/20 blur-3xl" />
@@ -353,15 +358,13 @@ export function ClinicSite() {
                 <p className="mt-3 text-xl text-white/90">{t.hours.text}</p>
                 <p className="mt-2 text-sm text-white/70">{t.hours.note}</p>
               </div>
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={openBooking}
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-clinic-navy font-medium hover:bg-clinic-gold hover:text-white transition-colors"
               >
-                <Instagram size={16} />
-                {t.ctaInstagram}
-              </a>
+                <CalendarIcon size={16} />
+                {t.ctaBook}
+              </button>
             </div>
           </div>
         </div>
@@ -406,13 +409,20 @@ export function ClinicSite() {
 
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <a
+              href={`tel:${PHONE_INTL}`}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-clinic-navy to-clinic-teal text-white font-medium shadow-lg shadow-clinic-teal/20 hover:shadow-xl transition-shadow"
+            >
+              <Phone size={18} />
+              {t.contact.button}
+            </a>
+            <a
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-clinic-navy to-clinic-teal text-white font-medium shadow-lg shadow-clinic-teal/20 hover:shadow-xl transition-shadow"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-clinic-navy/15 text-clinic-navy font-medium hover:border-clinic-teal hover:text-clinic-teal transition-colors"
             >
               <Instagram size={18} />
-              {t.contact.button}
+              {t.contact.instagramButton}
             </a>
             <a
               href={FACEBOOK_URL}
@@ -426,7 +436,6 @@ export function ClinicSite() {
           </div>
         </div>
       </section>
-
 
       {/* Footer */}
       <footer className="border-t border-clinic-navy/10 bg-white">
@@ -481,6 +490,12 @@ export function ClinicSite() {
           </div>
         </div>
       </footer>
+
+      <BookingDialog
+        open={bookingOpen}
+        onClose={() => setBookingOpen(false)}
+        lang={lang}
+      />
     </div>
   );
 }
