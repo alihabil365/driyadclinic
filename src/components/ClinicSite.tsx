@@ -23,7 +23,7 @@ import clinicVideoAsset from "@/assets/clinic-video.mp4.asset.json";
 import doctorAsset from "@/assets/doctor.jpg.asset.json";
 import clinicAsset from "@/assets/clinic.jpg.asset.json";
 import lobbyAsset from "@/assets/lobby.jpg.asset.json";
-import { BookingDialog } from "@/components/BookingDialog";
+
 import {
   translations,
   INSTAGRAM_URL,
