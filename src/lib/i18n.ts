@@ -63,11 +63,19 @@ export const translations = {
     booking: {
       title: "Book Your Appointment",
       subtitle:
-        "Choose a date and time that works for you. You'll receive an email confirmation instantly.",
+        "Choose an available appointment time with Dr. Iyad Ali Habil. You'll receive an email confirmation instantly.",
       setupNote:
         "Booking calendar is being set up. Please call us or contact via Instagram for now.",
       close: "Close",
+      loading: "Loading calendar…",
+      fallback: "Open Appointment Calendar",
+      urgentNote:
+        "For urgent appointments, please call the clinic directly during working hours.",
+      phoneLabel: "Clinic phone",
+      addressLabel: "Clinic address",
+      backHome: "Back to home",
     },
+
     footer: {
       disclaimer:
         "This website provides general clinic information and does not replace medical consultation.",
