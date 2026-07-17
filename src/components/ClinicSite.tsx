@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import {
   Eye,
   Instagram,
@@ -22,7 +23,7 @@ import clinicVideoAsset from "@/assets/clinic-video.mp4.asset.json";
 import doctorAsset from "@/assets/doctor.jpg.asset.json";
 import clinicAsset from "@/assets/clinic.jpg.asset.json";
 import lobbyAsset from "@/assets/lobby.jpg.asset.json";
-import { BookingDialog } from "@/components/BookingDialog";
+
 import {
   translations,
   INSTAGRAM_URL,
@@ -38,7 +39,6 @@ const serviceIcons = [ScanEye, Eye, Sparkles, Sun, HeartPulse];
 export function ClinicSite() {
   const [lang, setLang] = useState<Lang>("en");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [bookingOpen, setBookingOpen] = useState(false);
   const t = translations[lang];
   const isRtl = lang === "ar";
 
@@ -69,7 +69,7 @@ export function ClinicSite() {
   }, [lang, t.dir, isRtl]);
 
   const toggleLang = () => setLang((l) => (l === "en" ? "ar" : "en"));
-  const openBooking = () => setBookingOpen(true);
+
 
   const navItems: { key: keyof typeof t.nav; href: string }[] = [
     { key: "home", href: "#home" },
@@ -119,13 +119,13 @@ export function ClinicSite() {
               <Languages size={16} />
               {t.langToggle}
             </button>
-            <button
-              onClick={openBooking}
+            <Link
+              to="/book"
               className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-clinic-navy to-clinic-teal text-white text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
             >
               <CalendarIcon size={16} />
               {t.ctaBook}
-            </button>
+            </Link>
             <button
               className="lg:hidden p-2 rounded-lg border border-clinic-navy/15"
               onClick={() => setMenuOpen((v) => !v)}
@@ -155,16 +155,14 @@ export function ClinicSite() {
                 <Languages size={16} className="inline me-2" />
                 {t.langToggle}
               </button>
-              <button
-                onClick={() => {
-                  setMenuOpen(false);
-                  openBooking();
-                }}
+              <Link
+                to="/book"
+                onClick={() => setMenuOpen(false)}
                 className="mt-2 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-clinic-navy to-clinic-teal text-white text-sm font-medium"
               >
                 <CalendarIcon size={16} />
                 {t.ctaBook}
-              </button>
+              </Link>
             </div>
           </div>
         )}
@@ -200,13 +198,13 @@ export function ClinicSite() {
               {t.hero.subtitle}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <button
-                onClick={openBooking}
+              <Link
+                to="/book"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-clinic-navy font-medium shadow-lg hover:bg-clinic-gold hover:text-white transition-colors"
               >
                 <CalendarIcon size={18} />
                 {t.hero.cta1}
-              </button>
+              </Link>
               <a
                 href={`tel:${PHONE_INTL}`}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/40 text-white font-medium hover:bg-white/10 transition-colors"
@@ -358,13 +356,13 @@ export function ClinicSite() {
                 <p className="mt-3 text-xl text-white/90">{t.hours.text}</p>
                 <p className="mt-2 text-sm text-white/70">{t.hours.note}</p>
               </div>
-              <button
-                onClick={openBooking}
+              <Link
+                to="/book"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-clinic-navy font-medium hover:bg-clinic-gold hover:text-white transition-colors"
               >
                 <CalendarIcon size={16} />
                 {t.ctaBook}
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -491,11 +489,6 @@ export function ClinicSite() {
         </div>
       </footer>
 
-      <BookingDialog
-        open={bookingOpen}
-        onClose={() => setBookingOpen(false)}
-        lang={lang}
-      />
     </div>
   );
 }

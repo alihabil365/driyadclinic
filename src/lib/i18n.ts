@@ -63,11 +63,19 @@ export const translations = {
     booking: {
       title: "Book Your Appointment",
       subtitle:
-        "Choose a date and time that works for you. You'll receive an email confirmation instantly.",
+        "Choose an available appointment time with Dr. Iyad Ali Habil. You'll receive an email confirmation instantly.",
       setupNote:
         "Booking calendar is being set up. Please call us or contact via Instagram for now.",
       close: "Close",
+      loading: "Loading calendar…",
+      fallback: "Open Appointment Calendar",
+      urgentNote:
+        "For urgent appointments, please call the clinic directly during working hours.",
+      phoneLabel: "Clinic phone",
+      addressLabel: "Clinic address",
+      backHome: "Back to home",
     },
+
     footer: {
       disclaimer:
         "This website provides general clinic information and does not replace medical consultation.",
@@ -134,11 +142,19 @@ export const translations = {
     booking: {
       title: "احجز موعدك",
       subtitle:
-        "اختر التاريخ والوقت المناسب لك. ستصلك رسالة تأكيد عبر البريد الإلكتروني فوراً.",
+        "اختر موعداً متاحاً مع د. إياد علي هابيل. ستصلك رسالة تأكيد عبر البريد الإلكتروني فوراً.",
       setupNote:
         "تقويم الحجز قيد الإعداد. الرجاء الاتصال بنا أو التواصل عبر إنستغرام حالياً.",
       close: "إغلاق",
+      loading: "جارِ تحميل التقويم…",
+      fallback: "افتح تقويم الحجز",
+      urgentNote:
+        "للحجوزات العاجلة، يرجى الاتصال بالعيادة مباشرةً خلال أوقات الدوام.",
+      phoneLabel: "هاتف العيادة",
+      addressLabel: "عنوان العيادة",
+      backHome: "العودة إلى الرئيسية",
     },
+
     footer: {
       disclaimer:
         "يوفر هذا الموقع معلومات عامة عن العيادة ولا يغني عن الاستشارة الطبية.",
@@ -168,6 +184,7 @@ export const EMAIL = "habiliyad@gmail.com";
 //      client, and you can view/edit all bookings in your Cal.com dashboard
 //      (your "admin page" — free, no setup).
 // ============================================================================
-export const CAL_USERNAME = "dr-iyad-eye-clinic"; // <-- replace with your cal.com username
-export const CAL_EVENT_SLUG = "consultation"; // <-- replace with your event type slug
+export const CAL_USERNAME = "driyadclinic";
+export const CAL_EVENT_SLUG = "eye-appointment";
 export const CAL_LINK = `${CAL_USERNAME}/${CAL_EVENT_SLUG}`;
+export const CAL_URL = `https://cal.com/${CAL_LINK}`;
