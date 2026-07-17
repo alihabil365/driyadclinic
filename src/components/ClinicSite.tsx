@@ -39,7 +39,6 @@ const serviceIcons = [ScanEye, Eye, Sparkles, Sun, HeartPulse];
 export function ClinicSite() {
   const [lang, setLang] = useState<Lang>("en");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [bookingOpen, setBookingOpen] = useState(false);
   const t = translations[lang];
   const isRtl = lang === "ar";
 
