@@ -69,7 +69,7 @@ export function ClinicSite() {
   }, [lang, t.dir, isRtl]);
 
   const toggleLang = () => setLang((l) => (l === "en" ? "ar" : "en"));
-  const openBooking = () => setBookingOpen(true);
+
 
   const navItems: { key: keyof typeof t.nav; href: string }[] = [
     { key: "home", href: "#home" },
