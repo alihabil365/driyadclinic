@@ -489,11 +489,6 @@ export function ClinicSite() {
         </div>
       </footer>
 
-      <BookingDialog
-        open={bookingOpen}
-        onClose={() => setBookingOpen(false)}
-        lang={lang}
-      />
     </div>
   );
 }
