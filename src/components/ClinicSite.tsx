@@ -356,13 +356,13 @@ export function ClinicSite() {
                 <p className="mt-3 text-xl text-white/90">{t.hours.text}</p>
                 <p className="mt-2 text-sm text-white/70">{t.hours.note}</p>
               </div>
-              <button
-                onClick={openBooking}
+              <Link
+                to="/book"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-clinic-navy font-medium hover:bg-clinic-gold hover:text-white transition-colors"
               >
                 <CalendarIcon size={16} />
                 {t.ctaBook}
-              </button>
+              </Link>
             </div>
           </div>
         </div>
