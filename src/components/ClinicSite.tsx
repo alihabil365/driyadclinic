@@ -198,13 +198,13 @@ export function ClinicSite() {
               {t.hero.subtitle}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <button
-                onClick={openBooking}
+              <Link
+                to="/book"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-clinic-navy font-medium shadow-lg hover:bg-clinic-gold hover:text-white transition-colors"
               >
                 <CalendarIcon size={18} />
                 {t.hero.cta1}
-              </button>
+              </Link>
               <a
                 href={`tel:${PHONE_INTL}`}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/40 text-white font-medium hover:bg-white/10 transition-colors"
