@@ -155,16 +155,14 @@ export function ClinicSite() {
                 <Languages size={16} className="inline me-2" />
                 {t.langToggle}
               </button>
-              <button
-                onClick={() => {
-                  setMenuOpen(false);
-                  openBooking();
-                }}
+              <Link
+                to="/book"
+                onClick={() => setMenuOpen(false)}
                 className="mt-2 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-clinic-navy to-clinic-teal text-white text-sm font-medium"
               >
                 <CalendarIcon size={16} />
                 {t.ctaBook}
-              </button>
+              </Link>
             </div>
           </div>
         )}
