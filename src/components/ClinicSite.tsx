@@ -119,13 +119,13 @@ export function ClinicSite() {
               <Languages size={16} />
               {t.langToggle}
             </button>
-            <button
-              onClick={openBooking}
+            <Link
+              to="/book"
               className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-clinic-navy to-clinic-teal text-white text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
             >
               <CalendarIcon size={16} />
               {t.ctaBook}
-            </button>
+            </Link>
             <button
               className="lg:hidden p-2 rounded-lg border border-clinic-navy/15"
               onClick={() => setMenuOpen((v) => !v)}
