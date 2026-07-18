@@ -114,7 +114,7 @@ export function ClinicSite() {
             <button
               onClick={toggleLang}
               aria-label="Switch language"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-clinic-navy/15 text-sm text-clinic-navy hover:border-clinic-teal hover:text-clinic-teal transition-colors"
+              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg border border-clinic-navy/15 text-sm text-clinic-navy hover:border-clinic-teal hover:text-clinic-teal transition-colors"
             >
               <Languages size={16} />
               {t.langToggle}
@@ -148,13 +148,6 @@ export function ClinicSite() {
                   {t.nav[n.key]}
                 </a>
               ))}
-              <button
-                onClick={toggleLang}
-                className="mt-2 py-2 text-start text-clinic-teal font-medium"
-              >
-                <Languages size={16} className="inline me-2" />
-                {t.langToggle}
-              </button>
               <Link
                 to="/book"
                 onClick={() => setMenuOpen(false)}
