@@ -148,13 +148,6 @@ export function ClinicSite() {
                   {t.nav[n.key]}
                 </a>
               ))}
-              <button
-                onClick={toggleLang}
-                className="mt-2 py-2 text-start text-clinic-teal font-medium"
-              >
-                <Languages size={16} className="inline me-2" />
-                {t.langToggle}
-              </button>
               <Link
                 to="/book"
                 onClick={() => setMenuOpen(false)}
