@@ -26,6 +26,7 @@ export const Route = createFileRoute("/book")({
           "Book an appointment with Dr. Iyad Ali Habil. Choose an available time online — instant email confirmation.",
       },
       { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: BookPage,
@@ -34,6 +35,7 @@ export const Route = createFileRoute("/book")({
 function BookPage() {
   const [lang, setLang] = useState<Lang>("en");
   const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
   const t = translations[lang];
   const b = t.booking;
   const isRtl = lang === "ar";
@@ -96,6 +98,15 @@ function BookPage() {
     } else {
       initCal();
     }
+
+    // If the embed hasn't loaded after 12s, show the fallback prominently
+    const timeout = window.setTimeout(() => {
+      setLoaded((wasLoaded) => {
+        if (!wasLoaded) setFailed(true);
+        return wasLoaded;
+      });
+    }, 12000);
+    return () => window.clearTimeout(timeout);
   }, []);
 
   const toggleLang = () => setLang((l) => (l === "en" ? "ar" : "en"));
@@ -152,10 +163,25 @@ function BookPage() {
           <div className="relative w-full">
             {!loaded && (
               <div className="absolute inset-0 grid place-items-center bg-white z-10">
-                <div className="flex flex-col items-center gap-3 text-clinic-navy/70">
-                  <div className="w-10 h-10 rounded-full border-2 border-clinic-teal/30 border-t-clinic-teal animate-spin" />
-                  <span className="text-sm">{b.loading}</span>
-                </div>
+                {failed ? (
+                  <div className="flex flex-col items-center gap-4 text-clinic-navy/70 px-6 text-center">
+                    <p className="text-sm max-w-sm">{b.setupNote}</p>
+                    <a
+                      href={CAL_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-clinic-teal text-white text-sm font-medium hover:opacity-90 transition-opacity"
+                    >
+                      <CalendarIcon size={16} />
+                      {b.fallback}
+                    </a>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center gap-3 text-clinic-navy/70">
+                    <div className="w-10 h-10 rounded-full border-2 border-clinic-teal/30 border-t-clinic-teal animate-spin" />
+                    <span className="text-sm">{b.loading}</span>
+                  </div>
+                )}
               </div>
             )}
             <div
