@@ -97,6 +97,15 @@ function BookPage() {
     } else {
       initCal();
     }
+
+    // If the embed hasn't loaded after 12s, show the fallback prominently
+    const timeout = window.setTimeout(() => {
+      setLoaded((wasLoaded) => {
+        if (!wasLoaded) setFailed(true);
+        return wasLoaded;
+      });
+    }, 12000);
+    return () => window.clearTimeout(timeout);
   }, []);
 
   const toggleLang = () => setLang((l) => (l === "en" ? "ar" : "en"));
