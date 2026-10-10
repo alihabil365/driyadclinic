@@ -162,10 +162,25 @@ function BookPage() {
           <div className="relative w-full">
             {!loaded && (
               <div className="absolute inset-0 grid place-items-center bg-white z-10">
-                <div className="flex flex-col items-center gap-3 text-clinic-navy/70">
-                  <div className="w-10 h-10 rounded-full border-2 border-clinic-teal/30 border-t-clinic-teal animate-spin" />
-                  <span className="text-sm">{b.loading}</span>
-                </div>
+                {failed ? (
+                  <div className="flex flex-col items-center gap-4 text-clinic-navy/70 px-6 text-center">
+                    <p className="text-sm max-w-sm">{b.setupNote}</p>
+                    <a
+                      href={CAL_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-clinic-teal text-white text-sm font-medium hover:opacity-90 transition-opacity"
+                    >
+                      <CalendarIcon size={16} />
+                      {b.fallback}
+                    </a>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center gap-3 text-clinic-navy/70">
+                    <div className="w-10 h-10 rounded-full border-2 border-clinic-teal/30 border-t-clinic-teal animate-spin" />
+                    <span className="text-sm">{b.loading}</span>
+                  </div>
+                )}
               </div>
             )}
             <div
