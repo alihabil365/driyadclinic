@@ -34,6 +34,7 @@ export const Route = createFileRoute("/book")({
 function BookPage() {
   const [lang, setLang] = useState<Lang>("en");
   const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
   const t = translations[lang];
   const b = t.booking;
   const isRtl = lang === "ar";
