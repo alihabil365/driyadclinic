@@ -26,6 +26,7 @@ export const Route = createFileRoute("/book")({
           "Book an appointment with Dr. Iyad Ali Habil. Choose an available time online — instant email confirmation.",
       },
       { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: BookPage,

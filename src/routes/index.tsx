@@ -8,7 +8,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Dr. Iyad Ali Habil — ophthalmology clinic offering cornea, cataract, and laser vision correction consultations. Contact via Instagram.",
+          "Dr. Iyad Ali Habil — ophthalmology clinic in Ramallah offering cornea, cataract, and laser vision correction consultations. Book online or call 0594599928.",
       },
       {
         property: "og:title",
@@ -17,9 +17,10 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Dr. Iyad Ali Habil — ophthalmology clinic offering cornea, cataract, and laser vision correction consultations. Contact via Instagram.",
+          "Dr. Iyad Ali Habil — ophthalmology clinic in Ramallah offering cornea, cataract, and laser vision correction consultations. Book online or call 0594599928.",
       },
       { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "/" },
     ],
     links: [{ rel: "canonical", href: "/" }],
