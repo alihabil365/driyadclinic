@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { readLanguage, saveLanguage } from "@/lib/language";
 import {
   Eye,
   Instagram,
@@ -43,16 +44,13 @@ export function ClinicSite() {
   const isRtl = lang === "ar";
 
   useEffect(() => {
-    const saved = (typeof window !== "undefined" &&
-      (localStorage.getItem("clinic-lang") as Lang | null)) || null;
-    if (saved === "ar" || saved === "en") setLang(saved);
+    setLang(readLanguage());
   }, []);
 
   useEffect(() => {
     if (typeof document === "undefined") return;
     document.documentElement.lang = lang;
     document.documentElement.dir = t.dir;
-    localStorage.setItem("clinic-lang", lang);
     document.title = isRtl
       ? "عيادة د. إياد للعيون — طب وجراحة العيون"
       : "Dr. Iyad Eye Clinic — Specialized Ophthalmology Care";
@@ -68,8 +66,11 @@ export function ClinicSite() {
     m.setAttribute("content", desc);
   }, [lang, t.dir, isRtl]);
 
-  const toggleLang = () => setLang((l) => (l === "en" ? "ar" : "en"));
-
+  const toggleLang = () => {
+    const next = lang === "en" ? "ar" : "en";
+    saveLanguage(next);
+    setLang(next);
+  };
 
   const navItems: { key: keyof typeof t.nav; href: string }[] = [
     { key: "home", href: "#home" },
@@ -162,10 +163,7 @@ export function ClinicSite() {
       </header>
 
       {/* Hero with background video */}
-      <section
-        id="home"
-        className="relative overflow-hidden bg-clinic-navy"
-      >
+      <section id="home" className="relative overflow-hidden bg-clinic-navy">
         <video
           src={heroVideoAsset.url}
           autoPlay
@@ -187,9 +185,7 @@ export function ClinicSite() {
             <h1 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
               {t.hero.title}
             </h1>
-            <p className="mt-5 text-lg text-white/85 leading-relaxed max-w-xl">
-              {t.hero.subtitle}
-            </p>
+            <p className="mt-5 text-lg text-white/85 leading-relaxed max-w-xl">{t.hero.subtitle}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/book"
@@ -220,9 +216,7 @@ export function ClinicSite() {
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-clinic-navy">
               {t.about.title}
             </h2>
-            <p className="mt-5 text-lg text-clinic-navy/70 leading-relaxed">
-              {t.about.text}
-            </p>
+            <p className="mt-5 text-lg text-clinic-navy/70 leading-relaxed">{t.about.text}</p>
             <div className="mt-8 grid sm:grid-cols-2 gap-4">
               <InfoRow
                 icon={<Stethoscope size={18} />}
@@ -250,12 +244,8 @@ export function ClinicSite() {
                   />
                 </div>
                 <div className="mt-5">
-                  <h3 className="text-xl font-bold text-clinic-navy">
-                    {t.about.name}
-                  </h3>
-                  <p className="text-sm text-clinic-navy/70 mt-1">
-                    {t.about.specialty}
-                  </p>
+                  <h3 className="text-xl font-bold text-clinic-navy">{t.about.name}</h3>
+                  <p className="text-sm text-clinic-navy/70 mt-1">{t.about.specialty}</p>
                   <a
                     href={INSTAGRAM_URL}
                     target="_blank"
@@ -295,9 +285,7 @@ export function ClinicSite() {
                   <div className="w-12 h-12 rounded-xl grid place-items-center bg-gradient-to-br from-clinic-teal/15 to-clinic-navy/10 text-clinic-teal group-hover:from-clinic-navy group-hover:to-clinic-teal group-hover:text-white transition-colors">
                     <Icon size={22} />
                   </div>
-                  <h3 className="mt-5 text-lg font-semibold text-clinic-navy">
-                    {item}
-                  </h3>
+                  <h3 className="mt-5 text-lg font-semibold text-clinic-navy">{item}</h3>
                   <div className="mt-4 h-px bg-gradient-to-r from-clinic-teal/30 to-transparent" />
                 </div>
               );
@@ -319,7 +307,12 @@ export function ClinicSite() {
           </div>
           <div className="mt-12 grid sm:grid-cols-2 gap-6">
             <div className="rounded-3xl overflow-hidden shadow-xl shadow-clinic-navy/10 aspect-[4/3]">
-              <img src={clinicAsset.url} alt={isRtl ? "غرفة الفحص" : "Examination room"} loading="lazy" className="w-full h-full object-cover" />
+              <img
+                src={clinicAsset.url}
+                alt={isRtl ? "غرفة الفحص" : "Examination room"}
+                loading="lazy"
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="rounded-3xl overflow-hidden shadow-xl shadow-clinic-navy/10 aspect-[4/3] bg-clinic-navy">
               <video
@@ -393,7 +386,10 @@ export function ClinicSite() {
               icon={<MapPin size={22} />}
               label={t.contact.addressLabel}
               value={t.contact.address}
-              hint={t.contact.mapsSoon}
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(translations.en.contact.address)}`}
+              hint={
+                isRtl ? "ابحث عن العنوان على خرائط Google" : "Search this address on Google Maps"
+              }
               className="md:col-span-2"
             />
           </div>
@@ -481,20 +477,11 @@ export function ClinicSite() {
           </div>
         </div>
       </footer>
-
     </div>
   );
 }
 
-function InfoRow({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-}) {
+function InfoRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
     <div className="flex items-start gap-3 rounded-xl bg-clinic-mist/60 p-4">
       <span className="mt-0.5 text-clinic-teal">{icon}</span>
@@ -534,10 +521,7 @@ function ContactCard({
         <div className="text-xs font-semibold uppercase tracking-wider text-clinic-navy/50">
           {label}
         </div>
-        <div
-          className="mt-1 text-base font-medium text-clinic-navy break-words"
-          dir={dir}
-        >
+        <div className="mt-1 text-base font-medium text-clinic-navy break-words" dir={dir}>
           {value}
         </div>
         {hint && <div className="mt-1 text-xs text-clinic-navy/50">{hint}</div>}
@@ -546,10 +530,7 @@ function ContactCard({
   );
   const base = `flex items-start gap-4 rounded-2xl bg-white border border-clinic-navy/5 p-6 shadow-sm ${className}`;
   return href ? (
-    <a
-      href={href}
-      className={`${base} hover:shadow-md hover:border-clinic-teal/30 transition-all`}
-    >
+    <a href={href} className={`${base} hover:shadow-md hover:border-clinic-teal/30 transition-all`}>
       {inner}
     </a>
   ) : (
