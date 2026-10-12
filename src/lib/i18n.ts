@@ -184,7 +184,7 @@ export const EMAIL = "habiliyad@gmail.com";
 //      client, and you can view/edit all bookings in your Cal.com dashboard
 //      (your "admin page" — free, no setup).
 // ============================================================================
-export const CAL_USERNAME = "driyadclinic";
-export const CAL_EVENT_SLUG = "eye-appointment";
+export const CAL_USERNAME = "dr-iyad-eye-clinic";
+export const CAL_EVENT_SLUG = "driyadclinic-eye-appointment";
 export const CAL_LINK = `${CAL_USERNAME}/${CAL_EVENT_SLUG}`;
 export const CAL_URL = `https://cal.com/${CAL_LINK}`;

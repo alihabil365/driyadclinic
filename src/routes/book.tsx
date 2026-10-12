@@ -2,13 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Calendar as CalendarIcon, Eye, MapPin, Phone } from "lucide-react";
 import {
-  CAL_LINK,
   CAL_URL,
   PHONE_INTL,
   PHONE_NUMBER,
   translations,
   type Lang,
 } from "@/lib/i18n";
+import { mountCalEmbed } from "@/lib/cal-embed";
 
 export const Route = createFileRoute("/book")({
   head: () => ({
@@ -56,57 +56,15 @@ function BookPage() {
   }, [lang, t.dir]);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    type CalFn = ((...args: unknown[]) => void) & {
-      loaded?: boolean;
-      ns?: Record<string, unknown>;
-    };
-    const w = window as unknown as { Cal?: CalFn };
-
-    const initCal = () => {
-      const cal = (window as unknown as { Cal?: CalFn }).Cal;
-      if (!cal) return;
-      cal("init", "booking", { origin: "https://cal.com" });
-      cal("inline", {
-        elementOrSelector: "#cal-booking-inline",
-        calLink: CAL_LINK,
-        config: { layout: "month_view", theme: "light" },
-      });
-      cal("ui", {
-        theme: "light",
-        cssVarsPerTheme: { light: { "cal-brand": "#148A94" } },
-        hideEventTypeDetails: false,
-        layout: "month_view",
-      });
-      setLoaded(true);
-    };
-
-    if (!w.Cal) {
-      const existing = document.querySelector<HTMLScriptElement>(
-        'script[data-cal-embed="true"]',
-      );
-      if (existing) {
-        existing.addEventListener("load", initCal, { once: true });
-      } else {
-        const script = document.createElement("script");
-        script.src = "https://app.cal.com/embed/embed.js";
-        script.async = true;
-        script.dataset.calEmbed = "true";
-        script.onload = initCal;
-        document.head.appendChild(script);
-      }
-    } else {
-      initCal();
-    }
-
-    // If the embed hasn't loaded after 12s, show the fallback prominently
-    const timeout = window.setTimeout(() => {
-      setLoaded((wasLoaded) => {
-        if (!wasLoaded) setFailed(true);
-        return wasLoaded;
-      });
-    }, 12000);
-    return () => window.clearTimeout(timeout);
+    const cleanup = mountCalEmbed({
+      elementId: "cal-booking-inline",
+      onReady: () => {
+        setLoaded(true);
+        setFailed(false);
+      },
+      onError: () => setFailed(true),
+    });
+    return cleanup;
   }, []);
 
   const toggleLang = () => setLang((l) => (l === "en" ? "ar" : "en"));
