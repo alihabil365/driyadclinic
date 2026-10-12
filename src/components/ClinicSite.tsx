@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { readLanguage, saveLanguage } from "@/lib/language";
+import { InstagramUpdates } from "@/components/InstagramUpdates";
 import {
   Eye,
   Instagram,
@@ -76,6 +77,7 @@ export function ClinicSite() {
     { key: "home", href: "#home" },
     { key: "about", href: "#about" },
     { key: "services", href: "#services" },
+    { key: "updates", href: "#updates" },
     { key: "hours", href: "#hours" },
     { key: "contact", href: "#contact" },
   ];
@@ -329,6 +331,8 @@ export function ClinicSite() {
       </section>
 
       {/* Hours / Booking CTA */}
+      <InstagramUpdates lang={lang} />
+
       <section id="hours" className="py-20 lg:py-28">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-clinic-navy to-clinic-teal p-10 lg:p-14 text-white shadow-2xl shadow-clinic-navy/20">
@@ -386,10 +390,6 @@ export function ClinicSite() {
               icon={<MapPin size={22} />}
               label={t.contact.addressLabel}
               value={t.contact.address}
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(translations.en.contact.address)}`}
-              hint={
-                isRtl ? "ابحث عن العنوان على خرائط Google" : "Search this address on Google Maps"
-              }
               className="md:col-span-2"
             />
           </div>
