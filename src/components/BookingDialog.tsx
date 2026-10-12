@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
-import { X } from "lucide-react";
-import { CAL_LINK, translations, type Lang } from "@/lib/i18n";
+import { useEffect, useState } from "react";
+import { Calendar as CalendarIcon, X } from "lucide-react";
+import { CAL_URL, translations, type Lang } from "@/lib/i18n";
+import { mountCalEmbed } from "@/lib/cal-embed";
 
 interface Props {
   open: boolean;
@@ -11,48 +12,24 @@ interface Props {
 export function BookingDialog({ open, onClose, lang }: Props) {
   const t = translations[lang].booking;
   const isRtl = lang === "ar";
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
 
-  // Load Cal.com embed script once
+  // Mount the Cal.com embed each time the dialog opens (cleared first, so no
+  // duplicate calendars when reopening)
   useEffect(() => {
     if (!open) return;
-    if (typeof window === "undefined") return;
-
-    // Inject Cal.com embed script if not already present
-    const w = window as unknown as {
-      Cal?: ((...args: unknown[]) => void) & { loaded?: boolean; ns?: Record<string, unknown> };
-    };
-    if (!w.Cal) {
-      const script = document.createElement("script");
-      script.src = "https://app.cal.com/embed/embed.js";
-      script.async = true;
-      script.onload = () => initCal();
-      document.head.appendChild(script);
-    } else {
-      initCal();
-    }
-
-    function initCal() {
-      const cal = (window as unknown as { Cal?: (...args: unknown[]) => void }).Cal;
-      if (!cal) return;
-      cal("init", "booking", { origin: "https://cal.com" });
-      cal("inline", {
-        elementOrSelector: "#cal-booking-embed",
-        calLink: CAL_LINK,
-        config: {
-          layout: "month_view",
-          theme: "light",
-        },
-      });
-      cal("ui", {
-        theme: "light",
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#148A94" },
-        },
-        hideEventTypeDetails: false,
-        layout: "month_view",
-      });
-    }
+    setLoaded(false);
+    setFailed(false);
+    const cleanup = mountCalEmbed({
+      elementId: "cal-booking-embed",
+      onReady: () => {
+        setLoaded(true);
+        setFailed(false);
+      },
+      onError: () => setFailed(true),
+    });
+    return cleanup;
   }, [open]);
 
   useEffect(() => {
@@ -89,11 +66,32 @@ export function BookingDialog({ open, onClose, lang }: Props) {
           </button>
         </div>
         <div className="p-2 sm:p-4">
-          <div
-            id="cal-booking-embed"
-            ref={containerRef}
-            className="min-h-[600px] w-full"
-          />
+          <div className="relative">
+            {!loaded && (
+              <div className="absolute inset-0 grid place-items-center bg-white z-10">
+                {failed ? (
+                  <div className="flex flex-col items-center gap-4 text-clinic-navy/70 px-6 text-center">
+                    <p className="text-sm max-w-sm">{t.setupNote}</p>
+                    <a
+                      href={CAL_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-clinic-teal text-white text-sm font-medium hover:opacity-90 transition-opacity"
+                    >
+                      <CalendarIcon size={16} />
+                      {t.fallback}
+                    </a>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center gap-3 text-clinic-navy/70">
+                    <div className="w-10 h-10 rounded-full border-2 border-clinic-teal/30 border-t-clinic-teal animate-spin" />
+                    <span className="text-sm">{t.loading}</span>
+                  </div>
+                )}
+              </div>
+            )}
+            <div id="cal-booking-embed" dir="ltr" className="min-h-[600px] w-full" />
+          </div>
           <noscript>
             <p className="p-4 text-center text-clinic-navy/70">{t.setupNote}</p>
           </noscript>

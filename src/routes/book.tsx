@@ -2,13 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Calendar as CalendarIcon, Eye, MapPin, Phone } from "lucide-react";
 import {
-  CAL_LINK,
   CAL_URL,
   PHONE_INTL,
   PHONE_NUMBER,
   translations,
   type Lang,
 } from "@/lib/i18n";
+import { mountCalEmbed } from "@/lib/cal-embed";
 
 export const Route = createFileRoute("/book")({
   head: () => ({
