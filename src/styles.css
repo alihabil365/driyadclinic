@@ -7,6 +7,14 @@
   display: none !important;
 }
 
+/* Instagram's fixed minimum width must not overflow narrow phones. */
+.instagram-preview .instagram-media,
+.instagram-preview iframe {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-arabic: "Cairo", "Tajawal", ui-sans-serif, system-ui, sans-serif;
