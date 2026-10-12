@@ -386,10 +386,6 @@ export function ClinicSite() {
               icon={<MapPin size={22} />}
               label={t.contact.addressLabel}
               value={t.contact.address}
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(translations.en.contact.address)}`}
-              hint={
-                isRtl ? "ابحث عن العنوان على خرائط Google" : "Search this address on Google Maps"
-              }
               className="md:col-span-2"
             />
           </div>

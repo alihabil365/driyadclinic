@@ -2,6 +2,11 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* The hosting platform injects its badge outside the React application. */
+#lovable-badge {
+  display: none !important;
+}
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-arabic: "Cairo", "Tajawal", ui-sans-serif, system-ui, sans-serif;
