@@ -1,14 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Calendar as CalendarIcon, Eye, MapPin, Phone } from "lucide-react";
-import {
-  CAL_URL,
-  PHONE_INTL,
-  PHONE_NUMBER,
-  translations,
-  type Lang,
-} from "@/lib/i18n";
+import { CAL_URL, PHONE_INTL, PHONE_NUMBER, translations, type Lang } from "@/lib/i18n";
 import { mountCalEmbed } from "@/lib/cal-embed";
+import { readLanguage, saveLanguage } from "@/lib/language";
 
 export const Route = createFileRoute("/book")({
   head: () => ({
@@ -41,11 +36,7 @@ function BookPage() {
   const isRtl = lang === "ar";
 
   useEffect(() => {
-    const saved =
-      (typeof window !== "undefined" &&
-        (localStorage.getItem("clinic-lang") as Lang | null)) ||
-      null;
-    if (saved === "ar" || saved === "en") setLang(saved);
+    setLang(readLanguage());
   }, []);
 
   useEffect(() => {
@@ -67,14 +58,15 @@ function BookPage() {
     return cleanup;
   }, []);
 
-  const toggleLang = () => setLang((l) => (l === "en" ? "ar" : "en"));
+  const toggleLang = () => {
+    const next = lang === "en" ? "ar" : "en";
+    saveLanguage(next);
+    setLang(next);
+  };
   const fontClass = isRtl ? "font-arabic" : "font-sans";
 
   return (
-    <div
-      dir={t.dir}
-      className={`${fontClass} min-h-screen bg-clinic-mist/40 text-clinic-navy`}
-    >
+    <div dir={t.dir} className={`${fontClass} min-h-screen bg-clinic-mist/40 text-clinic-navy`}>
       {/* Header */}
       <header className="sticky top-0 z-40 backdrop-blur bg-white/85 border-b border-clinic-navy/10">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
@@ -163,6 +155,20 @@ function BookPage() {
           </a>
         </div>
 
+        <p className="mt-6 text-center text-sm text-clinic-navy/70">
+          {isRtl
+            ? "تتم معالجة بيانات الحجز عبر Cal.com. يرجى مراجعة سياسة الخصوصية وتجنب كتابة معلومات طبية حساسة في الملاحظات؛ اتصل بالعيادة لمناقشتها."
+            : "Booking information is handled through Cal.com. Review its privacy policy and avoid entering sensitive medical information in the notes; call the clinic to discuss it."}{" "}
+          <a
+            href="https://cal.com/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-clinic-teal"
+          >
+            {isRtl ? "سياسة خصوصية Cal.com" : "Cal.com privacy policy"}
+          </a>
+        </p>
+
         {/* Clinic info */}
         <div className="mt-10 grid sm:grid-cols-2 gap-4">
           <a
@@ -196,9 +202,7 @@ function BookPage() {
           </div>
         </div>
 
-        <p className="mt-6 text-center text-sm text-clinic-navy/60">
-          {b.urgentNote}
-        </p>
+        <p className="mt-6 text-center text-sm text-clinic-navy/60">{b.urgentNote}</p>
       </main>
     </div>
   );

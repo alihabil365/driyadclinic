@@ -101,7 +101,12 @@ export function mountCalEmbed({
   }
 
   // Prevent duplicate calendars on remount/reopen
-  element.innerHTML = "";
+  // Give every mount its own node. Queued calls from an earlier mount then
+  // target a detached node instead of creating a duplicate in the new calendar.
+  const mountNode = document.createElement("div");
+  mountNode.style.minHeight = "inherit";
+  mountNode.style.width = "100%";
+  element.replaceChildren(mountNode);
 
   const Cal = installCalStub();
   Cal("init", NAMESPACE, { origin: "https://cal.com" });
@@ -112,24 +117,31 @@ export function mountCalEmbed({
     return () => {};
   }
 
-  let settled = false;
+  let disposed = false;
   let ready = false;
+  let failed = false;
   const finish = (ok: boolean) => {
-    if (settled) return;
-    settled = true;
+    if (disposed || ready || (!ok && failed)) return;
     window.clearTimeout(timer);
     if (ok) {
       ready = true;
       onReady?.();
     } else {
+      failed = true;
       onError?.();
     }
   };
 
   const timer = window.setTimeout(() => finish(false), timeoutMs);
 
+  // Register before mounting so a cached embed cannot report ready too early.
+  const readyCallback = () => finish(true);
+  const errorCallback = () => finish(false);
+  ns("on", { action: "linkReady", callback: readyCallback });
+  ns("on", { action: "linkFailed", callback: errorCallback });
+
   ns("inline", {
-    elementOrSelector: `#${elementId}`,
+    elementOrSelector: mountNode,
     calLink: CAL_LINK,
     config: {
       layout: "month_view",
@@ -146,19 +158,11 @@ export function mountCalEmbed({
     layout: "month_view",
   });
 
-  ns("on", {
-    action: "linkReady",
-    callback: () => finish(true),
-  });
-  ns("on", {
-    action: "linkFailed",
-    callback: () => finish(false),
-  });
-
   return () => {
+    disposed = true;
     window.clearTimeout(timer);
-    if (!ready && !settled) {
-      settled = true;
-    }
+    ns("off", { action: "linkReady", callback: readyCallback });
+    ns("off", { action: "linkFailed", callback: errorCallback });
+    mountNode.remove();
   };
 }
